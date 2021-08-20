@@ -18,12 +18,24 @@ refs.btnLoadMore.addEventListener("click", loadLoreFn);
 let pageNumber = 1;
 let inputValue;
 
-function foo() {
+//================ Promise ================
+// function foo() {
+//   try {
+//     fetchFn(inputValue, pageNumber).then((data) => {
+//       const markup = markupFetch(data.hits);
+//       createMarcup(markup);
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// ================ async/await ================
+async function foo() {
   try {
-    fetchFn(inputValue, pageNumber).then((data) => {
-      const markup = markupFetch(data.hits);
-      createMarcup(markup);
-    });
+    const imagesArr = await fetchFn(inputValue, pageNumber);
+    const markup = markupFetch(imagesArr.hits);
+    createMarcup(markup);
   } catch (error) {
     console.error(error);
   }
@@ -40,12 +52,16 @@ function inputValueFn(event) {
   pageNumber = 1;
 }
 
-function loadLoreFn() {
+async function loadLoreFn() {
   pageNumber += 1;
-  foo();
-
-  refs.btnLoadMore.scrollIntoView({
-    behavior: "smooth",
-    block: "end",
-  });
+  await foo();
+  // scroll();
 }
+
+// Плавный скрол я так к сожелению и не понял =(
+// function scroll() {
+//   refs.btnLoadMore.scrollIntoView({
+//     behavior: "smooth",
+//     block: "end",
+//   });
+// }
