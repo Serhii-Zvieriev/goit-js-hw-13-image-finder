@@ -4,7 +4,7 @@ var debounce = require("lodash.debounce");
 
 const refs = {
   btnFetch: document.getElementById("btn-fetch"),
-  formImput: document.getElementById("input-id"),
+  formImput: document.getElementById("search-form"),
   listRef: document.querySelector(".gallery"),
   btnLoadMore: document.getElementById("load-more"),
 };
@@ -36,6 +36,8 @@ async function foo() {
     const imagesArr = await fetchFn(inputValue, pageNumber);
     const markup = markupFetch(imagesArr.hits);
     createMarcup(markup);
+
+    scroll();
   } catch (error) {
     console.error(error);
   }
@@ -52,16 +54,22 @@ function inputValueFn(event) {
   pageNumber = 1;
 }
 
-async function loadLoreFn() {
+// function loadMoreScroll() {
+//   loadLoreFn();
+//   scroll();
+// }
+
+function loadLoreFn() {
   pageNumber += 1;
-  await foo();
+  foo();
+
   // scroll();
 }
 
 // Плавный скрол я так к сожелению и не понял =(
-// function scroll() {
-//   refs.btnLoadMore.scrollIntoView({
-//     behavior: "smooth",
-//     block: "end",
-//   });
-// }
+function scroll() {
+  refs.btnLoadMore.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+  });
+}
