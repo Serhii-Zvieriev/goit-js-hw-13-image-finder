@@ -1,5 +1,5 @@
 import markupFetch from "./templates/markup.hbs";
-import fetchFn from "./src/js/apiService";
+import fetchFn from "./js/apiService";
 var debounce = require("lodash.debounce");
 
 const refs = {
