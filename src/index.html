@@ -47,6 +47,12 @@
         width: 320px;
         height: 280px;
       }
+
+      .is-hidden {
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+      }
     </style>
   </head>
   <body>
@@ -59,13 +65,11 @@
       />
     </form>
 
-    <button id="btn-fetch">Fetch</button>
-
     <ul class="gallery">
       <!-- Список <li> с карточками изображений -->
     </ul>
 
-    <button id="load-more">Load more</button>
+    <button id="load-more" class="is-hidden">Load more</button>
 
     <script src="./index.js"></script>
   </body>

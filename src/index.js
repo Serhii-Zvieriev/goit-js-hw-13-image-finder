@@ -1,18 +1,16 @@
 import markupFetch from "./templates/markup.hbs";
 import fetchFn from "./js/apiService";
-var debounce = require("lodash.debounce");
+// var debounce = require("lodash.debounce");
 
 const refs = {
-  btnFetch: document.getElementById("btn-fetch"),
-  formImput: document.getElementById("search-form"),
+  formRef: document.getElementById("search-form"),
   listRef: document.querySelector(".gallery"),
   btnLoadMore: document.getElementById("load-more"),
 };
 
-const debouncedCreateMarcup = debounce(inputValueFn, 500);
+// const debouncedInputForm = debounce(inputValueFn, 500);
 
-refs.btnFetch.addEventListener("click", foo);
-refs.formImput.addEventListener("input", debouncedCreateMarcup);
+refs.formRef.addEventListener("submit", inputValueFn);
 refs.btnLoadMore.addEventListener("click", loadLoreFn);
 
 let pageNumber = 1;
@@ -50,24 +48,21 @@ function createMarcup(fnMarcup) {
 function inputValueFn(event) {
   event.preventDefault();
   refs.listRef.innerHTML = "";
-  inputValue = event.target.value;
+  inputValue = event.target.children[0].value;
   pageNumber = 1;
-}
 
-// function loadMoreScroll() {
-//   loadLoreFn();
-//   scroll();
-// }
+  foo();
+}
 
 function loadLoreFn() {
   pageNumber += 1;
   foo();
-
-  // scroll();
 }
 
-// Плавный скрол я так к сожелению и не понял =(
 function scroll() {
+  if (pageNumber) {
+    refs.btnLoadMore.classList.remove("is-hidden");
+  }
   refs.btnLoadMore.scrollIntoView({
     behavior: "smooth",
     block: "end",
